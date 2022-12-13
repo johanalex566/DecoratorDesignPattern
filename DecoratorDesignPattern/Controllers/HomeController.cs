@@ -18,6 +18,9 @@ namespace DecoratorDesignPattern.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IWeatherService _weatherService;
 
+        /*
+        Without dependency injection-- View the startup class for the implementation
+
         public HomeController(ILoggerFactory loggerFactory, IConfiguration configuration, IMemoryCache memoryCache)
         {
             _loggerFactory = loggerFactory;
@@ -29,7 +32,13 @@ namespace DecoratorDesignPattern.Controllers
             IWeatherService withCachingDecorator = new WeatherServiceCachingDecorator(withLogginDecorator, memoryCache);
             _weatherService = withCachingDecorator;
         }
+         */
 
+        public HomeController(ILogger<HomeController> logger, IWeatherService weatherService)
+        {
+            _logger = logger;
+            _weatherService = weatherService;
+        }
 
         public IActionResult Index(string location = "Chicago")
         {
